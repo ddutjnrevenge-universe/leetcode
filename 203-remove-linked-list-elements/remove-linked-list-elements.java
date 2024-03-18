@@ -13,7 +13,7 @@ class Solution {
         while (head!=null && head.val==val) {
             head=head.next;
         }
-        ListNode current = head;
+        ListNode current = head; //pointer
         while (current!=null && current.next!=null) {
             if (current.next.val==val) {
                 current.next = current.next.next;
