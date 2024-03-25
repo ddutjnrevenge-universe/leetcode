@@ -6,9 +6,9 @@ class Solution {
         int reversed_num = 0;
         while (x>reversed_num) {
             reversed_num = reversed_num * 10 + x%10;
-            System.out.println(reversed_num);
+            // System.out.println(reversed_num);
             x /= 10;
-            
+            // System.out.println(x);
         }
         return x==reversed_num || x==reversed_num /10;
     }
