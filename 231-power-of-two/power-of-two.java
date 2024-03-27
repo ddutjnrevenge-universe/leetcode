@@ -9,7 +9,5 @@ class Solution {
                 n=n/2;
         }
         return true;
-        // return (int)(Math.ceil((Math.log(n)/Math.log(2))))
-        // == (int)(Math.floor((Math.log(n)/Math.log(2))));
     }
 }
