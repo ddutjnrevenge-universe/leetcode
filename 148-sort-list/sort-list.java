@@ -14,73 +14,51 @@ class Solution {
             return head;
         }
         
-        int length = getLength(head);
+        // Find the middle of the list
+        ListNode prev = null;
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // Split the list into two halves
+        prev.next = null;
+        
+        // Recursively sort the two halves
+        ListNode left = sortList(head);
+        ListNode right = sortList(slow);
+        
+        // Merge the sorted halves
+        return merge(left, right);
+    }
+    
+    private ListNode merge(ListNode l1, ListNode l2) {
         ListNode dummyHead = new ListNode(0);
-        dummyHead.next = head;
-        
-        for (int size = 1; size < length; size *= 2) {
-            ListNode prev = dummyHead;
-            ListNode current = dummyHead.next;
-            
-            while (current != null) {
-                ListNode left = current;
-                ListNode right = split(left, size);
-                current = split(right, size);
-                
-                prev = merge(left, right, prev);
-            }
-        }
-        
-        return dummyHead.next;
-    }
-    
-    private int getLength(ListNode head) {
-        int length = 0;
-        while (head != null) {
-            length++;
-            head = head.next;
-        }
-        return length;
-    }
-    
-    private ListNode split(ListNode head, int size) {
-        if (head == null) {
-            return null;
-        }
-        for (int i = 1; head.next != null && i < size; i++) {
-            head = head.next;
-        }
-        ListNode right = head.next;
-        head.next = null;
-        return right;
-    }
-    
-    private ListNode merge(ListNode l1, ListNode l2, ListNode prev) {
-        ListNode current = prev;
+        ListNode curr = dummyHead;
         
         while (l1 != null && l2 != null) {
             if (l1.val < l2.val) {
-                current.next = l1;
+                curr.next = l1;
                 l1 = l1.next;
             } else {
-                current.next = l2;
+                curr.next = l2;
                 l2 = l2.next;
             }
-            current = current.next;
+            curr = curr.next;
         }
         
         if (l1 != null) {
-            current.next = l1;
+            curr.next = l1;
         }
         
         if (l2 != null) {
-            current.next = l2;
+            curr.next = l2;
         }
         
-        while (current.next != null) {
-            current = current.next;
-        }
-        
-        return current;
+        return dummyHead.next;
     }
 }
