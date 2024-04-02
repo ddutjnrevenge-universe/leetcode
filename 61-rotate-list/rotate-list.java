@@ -10,14 +10,14 @@
  */
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
-        if (head == null || k == 0) return head;
+        
         int length = 0;
         ListNode current = head;
         while (current != null) {
             length++;
             current = current.next;
         }
-    
+        if (head == null || k == 0) return head;
         k %= length; // Reduce k to a value less than length of the list
 
         for (int i = 0; i < k; i++) {
