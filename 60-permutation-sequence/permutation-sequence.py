@@ -5,21 +5,30 @@ class Solution(object):
         :type k: int
         :rtype: str
         """
-        factorial = [1] * n
+        def factorial(num):
+            result = 1
+            for i in range(1, num + 1):
+                result *= i
+            return result
+
+        def generate(nums, k):
+            if not nums:
+                return ""
+            
+            # Calculate factorial of n-1
+            fact = factorial(len(nums) - 1)
+            
+            # Find index of current digit
+            index = (k - 1) // fact
+            
+            # Update k
+            k = k - index * fact
+            
+            # Add current digit to result and remove from nums
+            num = nums[index]
+            nums.remove(num)
+            
+            return num + generate(nums, k)
+
         nums = [str(i) for i in range(1, n + 1)]
-
-        # Calculate factorial
-        for i in range(1, n):
-            factorial[i] = factorial[i - 1] * i
-
-        k -= 1
-        result = []
-
-        # Calculate the permutation
-        for i in range(n, 0, -1):
-            index = k // factorial[i - 1]
-            k %= factorial[i - 1]
-            result.append(nums[index])
-            nums.pop(index)
-
-        return ''.join(result)
+        return generate(nums, k)
