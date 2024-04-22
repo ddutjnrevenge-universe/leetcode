@@ -6,15 +6,22 @@ class Solution(object):
         """
         n = len(digits)
     
-        # Start from the least significant digit
-        for i in range(n - 1, -1, -1):
-            if digits[i] < 9:
-                # If the digit is less than 9, simply increment it and return the digits
-                digits[i] += 1
-                return digits
-            else:
-                # If the digit is 9, set it to 0 and continue with the next digit
-                digits[i] = 0
+        # Initialize carry to 1 for the addition
+        carry = 1
+        result = []
         
-        # If we are here, it means all digits were 9. Add 1 to the front.
-        return [1] + digits
+        # Traverse the digits in reverse order
+        for i in range(n - 1, -1, -1):
+            total = digits[i] + carry
+            
+            # Update the carry
+            carry = total // 10
+            
+            # Update the current digit
+            result.insert(0, total % 10)
+        
+        # If there's a remaining carry, add it to the front
+        if carry:
+            result.insert(0, carry)
+        
+        return result
