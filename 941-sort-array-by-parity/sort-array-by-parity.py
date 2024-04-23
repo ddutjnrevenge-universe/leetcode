@@ -13,8 +13,6 @@ class Solution(object):
                 even.append(nums[i])
             else:
                 odd.append(nums[i])
-        print(even)
-        print(odd)
         return even+odd
 
         
