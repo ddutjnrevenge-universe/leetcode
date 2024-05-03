@@ -22,7 +22,7 @@ class Solution {
         queue.offer(root);
         while (!queue.isEmpty()){
             int levelSize = queue.size();
-            List<Integer> levelNodes = new ArrayList<>();
+            List<Integer> levelNodes = new ArrayList<>(levelSize);
             
             for (int i = 0; i < levelSize; i++) {
                 TreeNode node = queue.poll();
